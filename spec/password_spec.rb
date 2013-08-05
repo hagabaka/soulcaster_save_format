@@ -44,7 +44,7 @@ describe Soulcaster::Password do
   fields = table.instance_variable_get(:@headers)[1..-1]
   table.objects.each do |object|
     password = object.password
-    game_state = Soulcaster::Password.decode(password).game_state
+    game_state = Soulcaster::Password.new.decode(password).game_state
 
     expect_field game_state, :archer_available, 1, password
 
