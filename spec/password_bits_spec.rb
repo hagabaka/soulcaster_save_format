@@ -1,4 +1,4 @@
-require 'soulcaster/game_state'
+require 'soulcaster_save_format/game_state'
 require 'chloroplast/dsl'
 
 :string                                                 

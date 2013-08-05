@@ -1,6 +1,6 @@
 # coding: binary
 
-require 'soulcaster/base32'
+require 'soulcaster_save_format/base32'
 require 'chloroplast/dsl'
 
 describe Soulcaster::Base32 do

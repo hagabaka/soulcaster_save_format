@@ -1,6 +1,8 @@
-require 'soulcaster/password'
+require 'soulcaster_save_format/password'
 
 module Soulcaster
+  # A Soul Caster autosave file is an XML file containing a Password element in a SoulcasterSave
+  # element. The password is decoded using Soulcaster::Password
   class Autosave
     attr_accessor :password
 

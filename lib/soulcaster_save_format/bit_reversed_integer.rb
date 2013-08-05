@@ -1,6 +1,11 @@
 require 'bindata'
 
 module Soulcaster
+  # Bitr handles the bit-reversed integers used in the password binary stream.
+  # These integers have their more significant bits written after less significant bits.
+  # This is different from how BinData defines little-endian bit based integers.
+  #
+  # A Bitr of specific width is created using Bit*r, e.g. bit4r for a 4-bit Bitr
   class Bitr < BinData::Primitive
     mandatory_parameter :width
     array :bits, type: :bit1, initial_length: :width

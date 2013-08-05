@@ -1,4 +1,4 @@
-require 'soulcaster/password'
+require 'soulcaster_save_format/password'
 require 'chloroplast/dsl'
 
 def expect_field(information, field, value, password)

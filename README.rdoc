@@ -1,0 +1,11 @@
+This is a parser of Soulcaster[http://www.magicaltimebean.com/soulcaster-ii/]
+I && II save files. It is based on the source code of the HTML5
+version[http://www.newgrounds.com/portal/view/606067] of the game.
+
+= Requirements
+- bindata
+
+== For testing
+- rspec
+- chloroplast
+

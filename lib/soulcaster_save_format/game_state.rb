@@ -1,11 +1,16 @@
 require 'bindata'
-require 'soulcaster/bit_reversed_integer'
+require 'soulcaster_save_format/bit_reversed_integer'
 
 module Soulcaster
   class GameStateBits < BinData::Array
     default_parameters type: bit1, initial_length: 112
   end
 
+  # The password binary stream is a wrapper of the game state structure. The structure uses
+  # reversed-bit integers which are handled by Bitr subclasses. The last byte of the stream
+  # contains 2 Bit4r's, rotation_index and checksum. The first 112 bits contains the encoded
+  # game state, but these bits have been rotated by ROTATION[rotation_index]. checksum is a
+  # function of the sum of all bits in the encoded game state.
   class PasswordBits < BinData::Record
     endian :little
     game_state_bits :rotated_game_state
