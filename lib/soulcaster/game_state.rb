@@ -1,4 +1,5 @@
 require 'bindata'
+require 'soulcaster/bit_reversed_integer'
 
 module Soulcaster
   class GameStateBits < BinData::Array
@@ -6,9 +7,10 @@ module Soulcaster
   end
 
   class PasswordBits < BinData::Record
+    endian :little
     game_state_bits :rotated_game_state
-    bit4            :rotation_index
-    bit4            :checksum
+    bit4r           :rotation_index
+    bit4r           :checksum
 
     ROTATION = [81, 91, 101, 31, 37, 41, 43, 47, 53, 7, 11, 13, 17, 19, 23, 29]
     def rotation
@@ -43,29 +45,29 @@ module Soulcaster
 
   class GameState < BinData::Record
     #                                 #  offset
-    bit14 :total_time                 #  0
-    bit7  :death_count                #  14
-    bit10 :summon_count_archer        #  21
-    bit10 :summon_count_tank          #  31
-    bit10 :summon_count_bomber        #  41
-    bit2  :game_mode                  #  51
-    bit17 :gold                       #  53
-    bit2  :scrolls                    #  70
-    bit2  :potions                    #  72
-    bit3  :soul_orbs                  #  74
-    bit5  :starting_level             #  77
-    bit1  :archer_available           #  82
-    bit3  :archer_weapon_level        #  83
-    bit3  :archer_attack_speed_level  #  86
-    bit3  :archer_range_upgrade_level #  89
-    bit1  :tank_available             #  92
-    bit3  :tank_weapon_level          #  93
-    bit3  :tank_attack_speed_level    #  96
-    bit3  :tank_range_upgrade_level   #  99
-    bit1  :bomber_available           #  102
-    bit3  :bomber_weapon_level        #  103
-    bit3  :bomber_attack_speed_level  #  106
-    bit3  :bomber_range_upgrade_level #  109
+    bit14r :total_time                 #  0
+    bit7r  :death_count                #  14
+    bit10r :summon_count_archer        #  21
+    bit10r :summon_count_tank          #  31
+    bit10r :summon_count_bomber        #  41
+    bit2r  :game_mode                  #  51
+    bit17r :gold                       #  53
+    bit2r  :scrolls                    #  70
+    bit2r  :potions                    #  72
+    bit3r  :soul_orbs                  #  74
+    bit5r  :starting_level             #  77
+    bit1   :archer_available           #  82
+    bit3r  :archer_weapon_level        #  83
+    bit3r  :archer_attack_speed_level  #  86
+    bit3r  :archer_range_upgrade_level #  89
+    bit1   :tank_available             #  92
+    bit3r  :tank_weapon_level          #  93
+    bit3r  :tank_attack_speed_level    #  96
+    bit3r  :tank_range_upgrade_level   #  99
+    bit1   :bomber_available           #  102
+    bit3r  :bomber_weapon_level        #  103
+    bit3r  :bomber_attack_speed_level  #  106
+    bit3r  :bomber_range_upgrade_level #  109
   end
 end
 
