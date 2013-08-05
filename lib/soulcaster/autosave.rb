@@ -11,7 +11,7 @@ module Soulcaster
 
     REGEXP = Regexp.new Regexp.quote(TEMPLATE) % ['(.*)']
     def read(content)
-      password = Password.new.decode(content[REGEXP, 1])
+      @password = Password.new.decode(content[REGEXP, 1])
       self
     end
 
