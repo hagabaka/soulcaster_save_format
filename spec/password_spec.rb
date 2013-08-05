@@ -1,14 +1,14 @@
 require 'soulcaster/password'
 require 'chloroplast/dsl'
 
-def expect_field(game_state, field, value, password)
+def expect_field(information, field, value, password)
   it "correctly extracts #{field} from a password" do
     begin
-      expect(game_state.send field).to be == value
+      expect(information.game_state.send field).to be == value
     rescue RSpec::Expectations::ExpectationNotMetError => e
       e.message <<
         "\npassword: #{password}" +
-        "\nrotation: #{game_state.rotation}" +
+        "\nrotation: #{information.rotation}" +
         "\n   field: #{field}"
       raise e
     end
@@ -44,16 +44,16 @@ describe Soulcaster::Password do
   fields = table.instance_variable_get(:@headers)[1..-1]
   table.objects.each do |object|
     password = object.password
-    game_state = Soulcaster::Password.new.decode(password).game_state
+    information = Soulcaster::Password.new.decode(password).information
 
-    expect_field game_state, :archer_available, 1, password
+    expect_field information, :archer_available, 1, password
 
-    expect_field game_state, :tank_available, object.starting_level >= 2 ? 1 : 0, password
+    expect_field information, :tank_available, object.starting_level >= 2 ? 1 : 0, password
 
-    expect_field game_state, :bomber_available, object.starting_level >= 4 ? 1: 0, password
+    expect_field information, :bomber_available, object.starting_level >= 4 ? 1: 0, password
 
     fields.each do |field|
-      expect_field game_state, field, object.send(field), password
+      expect_field information, field, object.send(field), password
     end
   end
 end

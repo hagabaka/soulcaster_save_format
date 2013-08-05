@@ -3,15 +3,15 @@ require 'soulcaster/game_state'
 
 module Soulcaster
   class Password
-    attr_accessor :game_state
+    attr_accessor :information
 
-    def initialize(game_state=nil)
-      @game_state = game_state
+    def initialize(information=nil)
+      @information = information
     end
 
     def decode(content)
-      digits = Base32.decode content
-      @game_state = GameState.new.decode(digits)
+      stream = Base32.decode content
+      @information = PasswordBits.read(stream)
       self
     end
   end
