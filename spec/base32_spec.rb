@@ -35,6 +35,10 @@ describe Soulcaster::Base32 do
     it 'decodes a base32 string' do
       expect(Soulcaster::Base32.decode(entry.password)).to be == entry.string
     end
+
+    it 'encodes a string in base32' do
+      expect(Soulcaster::Base32.encode(entry.string)).to be == entry.password
+    end
   end
 end
 
