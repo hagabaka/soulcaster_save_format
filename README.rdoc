@@ -2,6 +2,18 @@ This is a parser of Soulcaster[http://www.magicaltimebean.com/soulcaster-ii/]
 I && II save files. It is based on the source code of the HTML5
 version[http://www.newgrounds.com/portal/view/606067] of the game.
 
+= Usage
+
+  require 'soulcaster_save_format/autosave'
+  save = SoulcasterSaveFormat::AutoSave.new.read 'autosave.sav'
+
+  # You can inspect information in the save file
+  puts save.game_state.starting_level
+
+  # You can also edit information and generate a new save file
+  save.game_state.gold = 50
+  puts save.to_s
+
 = Requirements
 - bindata
 

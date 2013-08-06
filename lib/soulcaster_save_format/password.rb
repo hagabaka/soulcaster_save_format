@@ -12,6 +12,10 @@ module Soulcaster
       @information = information
     end
 
+    def game_state
+      @information && @information.game_state
+    end
+
     def decode(content)
       stream = Base32.decode content
       @information = PasswordBits.read(stream)

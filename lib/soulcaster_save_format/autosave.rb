@@ -11,6 +11,10 @@ module Soulcaster
       @password = password
     end
 
+    def game_state
+      @password && @password.game_state
+    end
+
     REGEXP = Regexp.new Regexp.quote(TEMPLATE) % ['(.*)']
     def read(content)
       @password = Password.new.decode(content[REGEXP, 1])
