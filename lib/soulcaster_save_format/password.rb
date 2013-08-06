@@ -17,6 +17,10 @@ module Soulcaster
       @information = PasswordBits.read(stream)
       self
     end
+
+    def to_s
+      Base32.encode @information.to_binary_s
+    end
   end
 end
 

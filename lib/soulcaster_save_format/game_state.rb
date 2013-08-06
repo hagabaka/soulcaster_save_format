@@ -27,14 +27,17 @@ module Soulcaster
     end
 
     def game_state
-      unrotated_game_state_bits = GameStateBits.new
-      unrotated_game_state_bits.assign rotated_game_state_bits.rotate(-rotation)
-      GameState.read unrotated_game_state_bits.to_binary_s
+      @game_state ||=
+        begin
+          @unrotated_game_state_bits = GameStateBits.new
+          @unrotated_game_state_bits.assign rotated_game_state_bits.rotate(-rotation)
+          GameState.read(@unrotated_game_state_bits.to_binary_s)
+        end
     end
 
     def game_state=(new_game_state)
-      new_game_state_bits = GameStateBits.read(new_game_state.to_binary_s).to_a
-      rotated_game_state_bits.assign new_game_state_bits.rotate(rotation)
+      @game_state = new_game_state
+      reencode
     end
 
     def actual_checksum
@@ -45,6 +48,17 @@ module Soulcaster
 
     def checksum_match?
       actual_checksum == checksum
+    end
+
+    def reencode
+      new_game_state_bits = GameStateBits.read(game_state.to_binary_s).to_a
+      rotated_game_state.assign new_game_state_bits.rotate(rotation)
+      checksum.assign actual_checksum
+    end
+
+    def to_binary_s
+      reencode
+      super
     end
   end
 

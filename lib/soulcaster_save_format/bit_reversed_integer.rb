@@ -16,8 +16,8 @@ module Soulcaster
 
     def set(number)
       bit_string = "%0#{@params[:width]}B" % number
-      bits = bit_string.split('').map(&:to_i)
-      bits.assign bits
+      new_bits = bit_string.split('').map(&:to_i)
+      bits.assign new_bits.reverse
     end
   end
 
